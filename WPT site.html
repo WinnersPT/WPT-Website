@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Winners Personal Training | WPT</title>
+  <meta name="description" content="Winners Personal Training – a professional, knowledge-driven coaching system in Groningen. The Winners Foundation Program: 4 months to transform your performance." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --off-black: #111111;
+      --dark: #1a1a1a;
+      --gold: #c8a96e;
+      --gold-light: #e2c99a;
+      --gold-dim: #7a6340;
+      --white: #f5f2ed;
+      --white-dim: rgba(245, 242, 237, 0.6);
+      --white-faint: rgba(245, 242, 237, 0.12);
+      --red: #c0392b;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── LANG TOGGLE ── */
+    .lang-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 40px;
+      background: linear-gradient(to bottom, rgba(10,10,10,0.98), rgba(10,10,10,0.7) 80%, transparent);
+    }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .nav-logo-img {
+      height: 52px;
+      width: auto;
+      display: block;
+      transition: opacity 0.2s;
+    }
+    .nav-logo-img:hover { opacity: 0.8; }
+    .lang-toggle {
+      display: flex;
+      gap: 0;
+      border: 1px solid var(--gold-dim);
+    }
+    .lang-toggle button {
+      background: transparent;
+      border: none;
+      color: var(--white-dim);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      padding: 6px 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .lang-toggle button.active {
+      background: var(--gold);
+      color: var(--black);
+      font-weight: 600;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 99;
+      display: flex;
+      justify-content: center;
+      gap: 2px;
+      padding: 0 0 28px;
+      pointer-events: none;
+    }
+    nav a {
+      pointer-events: all;
+      background: rgba(10,10,10,0.88);
+      border: 1px solid var(--gold-dim);
+      color: var(--white-dim);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 9px 20px;
+      transition: all 0.2s;
+      backdrop-filter: blur(8px);
+    }
+    nav a:hover {
+      background: var(--gold);
+      color: var(--black);
+      border-color: var(--gold);
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 120px 60px 100px;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 70% 40%, rgba(200,169,110,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 20% 80%, rgba(200,169,110,0.04) 0%, transparent 60%),
+        linear-gradient(160deg, #0a0a0a 0%, #141008 50%, #0a0a0a 100%);
+    }
+    .hero-line {
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 52%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--gold-dim) 30%, var(--gold-dim) 70%, transparent);
+      opacity: 0.3;
+    }
+    .hero-content { position: relative; max-width: 700px; }
+    .hero-logo {
+      width: 180px;
+      height: auto;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.1s forwards;
+    }
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(72px, 10vw, 140px);
+      line-height: 0.92;
+      letter-spacing: 0.02em;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s forwards;
+    }
+    .hero-title em {
+      color: var(--gold);
+      font-style: normal;
+      display: block;
+    }
+    .hero-sub {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--white-dim);
+      max-width: 480px;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.6s forwards;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.8s forwards;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--black);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 16px 36px;
+      transition: all 0.25s;
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-ghost {
+      display: inline-block;
+      border: 1px solid var(--gold-dim);
+      color: var(--white-dim);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 16px 36px;
+      transition: all 0.25s;
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+    .hero-badge {
+      position: absolute;
+      right: 60px;
+      bottom: 120px;
+      text-align: center;
+      opacity: 0;
+      animation: fadeUp 0.8s 1s forwards;
+    }
+    .hero-badge-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 64px;
+      line-height: 1;
+      color: var(--gold);
+    }
+    .hero-badge-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--white-dim);
+      text-transform: uppercase;
+    }
+
+    /* ── SECTION BASE ── */
+    section { padding: 110px 60px; }
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 6vw, 90px);
+      line-height: 0.95;
+      margin-bottom: 24px;
+    }
+    .section-title em { color: var(--gold); font-style: normal; }
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: var(--gold);
+      margin-bottom: 48px;
+    }
+
+    /* ── PROBLEM STRIP ── */
+    #problem {
+      background: var(--off-black);
+      padding: 70px 60px;
+      border-top: 1px solid var(--white-faint);
+      border-bottom: 1px solid var(--white-faint);
+    }
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .problem-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .problem-icon {
+      color: var(--gold);
+      font-size: 24px;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+    .problem-text strong {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 16px;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .problem-text span {
+      font-size: 14px;
+      color: var(--white-dim);
+      line-height: 1.6;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--black);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .about-visual {
+      position: relative;
+    }
+    .about-card {
+      background: var(--dark);
+      border: 1px solid var(--white-faint);
+      padding: 48px;
+      position: relative;
+    }
+    .about-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 60px;
+      background: var(--gold);
+    }
+    .about-card-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      margin-bottom: 4px;
+    }
+    .about-card-role {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .about-card-bio {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--white-dim);
+    }
+    .about-certs {
+      margin-top: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .cert-tag {
+      background: var(--white-faint);
+      border: 1px solid var(--gold-dim);
+      color: var(--gold-light);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      padding: 5px 12px;
+    }
+    .about-text p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--white-dim);
+      margin-bottom: 20px;
+    }
+    .about-text p strong { color: var(--white); font-weight: 500; }
+
+    /* ── PROGRAM ── */
+    #program {
+      background: var(--off-black);
+    }
+    .program-inner { max-width: 1100px; margin: 0 auto; }
+    .phases {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 60px;
+    }
+    .phase {
+      background: var(--dark);
+      padding: 48px 36px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+    .phase:hover { transform: translateY(-4px); }
+    .phase::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s;
+    }
+    .phase:hover::after { transform: scaleX(1); }
+    .phase-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 80px;
+      line-height: 1;
+      color: var(--white-faint);
+      margin-bottom: 16px;
+    }
+    .phase-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .phase-desc {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--white-dim);
+    }
+    .phase-weeks {
+      margin-top: 24px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      color: var(--gold-dim);
+      text-transform: uppercase;
+    }
+
+    /* ── PRICING ── */
+    #pricing {
+      background: var(--black);
+    }
+    .pricing-inner { max-width: 1000px; margin: 0 auto; }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 60px;
+    }
+    .price-card {
+      background: var(--dark);
+      border: 1px solid var(--white-faint);
+      padding: 52px 44px;
+      position: relative;
+    }
+    .price-card.featured {
+      border-color: var(--gold-dim);
+      background: linear-gradient(135deg, #1a1a1a 0%, #1a1508 100%);
+    }
+    .price-card.featured::before {
+      content: attr(data-label);
+      position: absolute;
+      top: -1px; right: 32px;
+      background: var(--gold);
+      color: var(--black);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+    }
+    .price-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .price-amount {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 72px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .price-period {
+      font-size: 13px;
+      color: var(--white-dim);
+      margin-bottom: 32px;
+    }
+    .price-features {
+      list-style: none;
+      margin-bottom: 40px;
+    }
+    .price-features li {
+      font-size: 15px;
+      color: var(--white-dim);
+      padding: 10px 0;
+      border-bottom: 1px solid var(--white-faint);
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .price-features li::before {
+      content: '✓';
+      color: var(--gold);
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    /* ── TESTIMONIALS placeholder ── */
+    #trust {
+      background: var(--off-black);
+      text-align: center;
+    }
+    .trust-inner { max-width: 900px; margin: 0 auto; }
+    .trust-quote {
+      font-size: 22px;
+      font-style: italic;
+      line-height: 1.7;
+      color: var(--white-dim);
+      margin: 48px 0 32px;
+      padding: 0 40px;
+      position: relative;
+    }
+    .trust-quote::before {
+      content: '"';
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 120px;
+      color: var(--gold);
+      opacity: 0.2;
+      position: absolute;
+      top: -20px; left: 0;
+      line-height: 1;
+    }
+    .trust-author {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    .trust-stats {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      margin-top: 72px;
+      flex-wrap: wrap;
+    }
+    .trust-stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 56px;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .trust-stat-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--white-dim);
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--black);
+    }
+    .contact-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .contact-info p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--white-dim);
+      margin-bottom: 36px;
+    }
+    .contact-detail {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .contact-detail-icon { color: var(--gold); font-size: 18px; }
+    .contact-detail-text {
+      font-size: 15px;
+      color: var(--white-dim);
+    }
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-group label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--dark);
+      border: 1px solid var(--white-faint);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-size: 15px;
+      padding: 14px 18px;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--gold); }
+    .form-group select option { background: var(--dark); }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-submit {
+      background: var(--gold);
+      color: var(--black);
+      border: none;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 18px 40px;
+      cursor: pointer;
+      transition: all 0.25s;
+      margin-top: 8px;
+      align-self: flex-start;
+    }
+    .form-submit:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--off-black);
+      border-top: 1px solid var(--white-faint);
+      padding: 48px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+    }
+    .footer-copy {
+      font-size: 13px;
+      color: var(--white-dim);
+    }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      color: var(--white-dim);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s, transform 0.7s;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      section { padding: 80px 28px; }
+      #hero { padding: 120px 28px 100px; }
+      #about { grid-template-columns: 1fr; gap: 40px; }
+      .phases { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+      .form-row { grid-template-columns: 1fr; }
+      nav { gap: 1px; padding: 0 0 20px; }
+      nav a { font-size: 10px; padding: 8px 12px; }
+      footer { flex-direction: column; text-align: center; padding: 36px 28px; }
+      .hero-badge { display: none; }
+      .lang-bar { padding: 12px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LANG BAR -->
+  <div class="lang-bar">
+    <a href="#hero" class="nav-logo">
+      <img src="LOGO_WPT.webp" alt="Winners Personal Training" class="nav-logo-img" />
+    </a>
+    <div class="lang-toggle">
+      <button class="active" onclick="setLang('en')" id="btn-en">EN</button>
+      <button onclick="setLang('nl')" id="btn-nl">NL</button>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#about" data-en="About" data-nl="Over Mij">About</a>
+    <a href="#program" data-en="The Program" data-nl="Het Programma">The Program</a>
+    <a href="#pricing" data-en="Pricing" data-nl="Prijzen">Pricing</a>
+    <a href="#contact" data-en="Apply Now" data-nl="Aanmelden">Apply Now</a>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-line"></div>
+    <div class="hero-content">
+      <img src="LOGO_WPT.webp" alt="Winners Personal Training" class="hero-logo" />
+      <p class="hero-eyebrow" data-en="We Book Our W's Together" data-nl="We Book Our W's Together">We Book Our W's Together</p>
+      <h1 class="hero-title">
+        <span data-en="TRAIN" data-nl="TRAIN">TRAIN</span>
+        <em data-en="SMARTER." data-nl="SLIMMER.">SMARTER.</em>
+        <span data-en="WIN LONGER." data-nl="WIN LANGER.">WIN LONGER.</span>
+      </h1>
+      <p class="hero-sub" data-en="A structured 4-month coaching system built on expertise, evidence, and your long-term independence. Not just a trainer — a system that works." data-nl="Een gestructureerd coachingsprogramma van 4 maanden, gebouwd op expertise, bewijs en jouw langetermijnonafhankelijkheid. Niet zomaar een trainer — een systeem dat werkt.">
+        A structured 4-month coaching system built on expertise, evidence, and your long-term independence. Not just a trainer — a system that works.
+      </p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn-primary" data-en="Apply for the Program" data-nl="Aanmelden voor het Programma">Apply for the Program</a>
+        <a href="#program" class="btn-ghost" data-en="How It Works" data-nl="Hoe Het Werkt">How It Works</a>
+      </div>
+    </div>
+    <div class="hero-badge">
+      <div class="hero-badge-num">4</div>
+      <div class="hero-badge-label" data-en="Month Program" data-nl="Maanden Programma">Month Program</div>
+    </div>
+  </section>
+
+  <!-- PROBLEM STRIP -->
+  <div id="problem">
+    <div class="problem-grid">
+      <div class="problem-item reveal">
+        <div class="problem-icon">✗</div>
+        <div class="problem-text">
+          <strong data-en="Generic programmes" data-nl="Generieke programma's">Generic programmes</strong>
+          <span data-en="Most trainers offer the same sessions without structure or measurable goals." data-nl="De meeste trainers bieden dezelfde sessies zonder structuur of meetbare doelen.">Most trainers offer the same sessions without structure or measurable goals.</span>
+        </div>
+      </div>
+      <div class="problem-item reveal">
+        <div class="problem-icon">✗</div>
+        <div class="problem-text">
+          <strong data-en="No long-term plan" data-nl="Geen langetermijnplan">No long-term plan</strong>
+          <span data-en="Clients stay dependent — or disappear — because there's no clear endpoint or progression." data-nl="Klanten blijven afhankelijk of haken af doordat er geen duidelijk eindpunt of progressie is.">Clients stay dependent — or disappear — because there's no clear endpoint or progression.</span>
+        </div>
+      </div>
+      <div class="problem-item reveal">
+        <div class="problem-icon">✗</div>
+        <div class="problem-text">
+          <strong data-en="Unclear value" data-nl="Onduidelijke waarde">Unclear value</strong>
+          <span data-en="Pricing without explanation leaves clients comparing on cost alone." data-nl="Prijzen zonder uitleg zorgen dat klanten alleen op kosten vergelijken.">Pricing without explanation leaves clients comparing on cost alone.</span>
+        </div>
+      </div>
+      <div class="problem-item reveal">
+        <div class="problem-icon">✓</div>
+        <div class="problem-text">
+          <strong data-en="WPT is different" data-nl="WPT is anders">WPT is different</strong>
+          <span data-en="A structured system, clear outcomes, and coaching that builds your independence." data-nl="Een gestructureerd systeem, duidelijke resultaten en coaching die jouw zelfstandigheid opbouwt.">A structured system, clear outcomes, and coaching that builds your independence.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section style="padding: 110px 60px;">
+    <div id="about">
+      <div class="about-visual reveal">
+        <div class="about-card">
+          <div class="about-card-name">Winners PT</div>
+          <div class="about-card-role" data-en="Personal Trainer · Groningen" data-nl="Personal Trainer · Groningen">Personal Trainer · Groningen</div>
+          <p class="about-card-bio" data-en="5+ years experience in the fitness industry, including 3.5 years at FitForFree/SportCity guiding members through training, rehabilitation, and performance. WPT is built on the belief that professional, structured coaching — grounded in evidence and ongoing development — delivers results that generic training cannot." data-nl="Meer dan 5 jaar ervaring in de fitnessbranche, waaronder 3,5 jaar bij FitForFree/SportCity. WPT is gebaseerd op de overtuiging dat professionele, gestructureerde coaching — gefundeerd in bewijs en voortdurende ontwikkeling — resultaten oplevert die generieke training niet kan bieden.">
+            5+ years experience in the fitness industry, including 3.5 years at FitForFree/SportCity guiding members through training, rehabilitation, and performance. WPT is built on the belief that professional, structured coaching — grounded in evidence and ongoing development — delivers results that generic training cannot.
+          </p>
+          <div class="about-certs">
+            <span class="cert-tag">NASM CPT</span>
+            <span class="cert-tag">NASM PES</span>
+            <span class="cert-tag">NASM CES</span>
+            <span class="cert-tag" data-en="Nutrition Coaching" data-nl="Voedingscoaching">Nutrition Coaching</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-text reveal">
+        <p class="section-label" data-en="About WPT" data-nl="Over WPT">About WPT</p>
+        <h2 class="section-title" data-en="BUILT ON A <em>HIGHER</em> STANDARD" data-nl="GEBOUWD OP EEN <em>HOGERE</em> STANDAARD">BUILT ON A <em>HIGHER</em> STANDARD</h2>
+        <div class="divider"></div>
+        <p data-en="Winners Personal Training was founded after years of observing a clear gap in the Dutch personal training market: most trainers lack structure, clear progression, or the professional development required to consistently deliver results." data-nl="Winners Personal Training is opgericht na jarenlang een duidelijke kloof te observeren in de Nederlandse personal trainingmarkt: de meeste trainers missen structuur, duidelijke progressie of de professionele ontwikkeling die nodig is om consistent resultaten te leveren.">
+          Winners Personal Training was founded after years of observing a clear gap in the Dutch personal training market: most trainers lack structure, clear progression, or the professional development required to consistently deliver results.
+        </p>
+        <p data-en="WPT combines <strong>evidence-based training</strong>, <strong>nutritional guidance</strong>, and <strong>lifestyle coaching</strong> into one coherent system. The goal is not to create dependency — it's to build capable, independent clients." data-nl="WPT combineert <strong>evidence-based training</strong>, <strong>voedingsbegeleiding</strong> en <strong>leefstijlcoaching</strong> in één samenhangend systeem. Het doel is niet afhankelijkheid creëren — maar capabele, zelfstandige klanten opbouwen.">
+          WPT combines <strong>evidence-based training</strong>, <strong>nutritional guidance</strong>, and <strong>lifestyle coaching</strong> into one coherent system. The goal is not to create dependency — it's to build capable, independent clients.
+        </p>
+        <p data-en="Based in Groningen, with an international coaching model designed for the Dutch and Canadian markets." data-nl="Gevestigd in Groningen, met een internationaal coachingmodel ontworpen voor de Nederlandse en Canadese markten.">
+          Based in Groningen, with an international coaching model designed for the Dutch and Canadian markets.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAM -->
+  <section id="program">
+    <div class="program-inner">
+      <p class="section-label reveal" data-en="The Foundation Program" data-nl="Het Fundatieprogramma">The Foundation Program</p>
+      <h2 class="section-title reveal" data-en="4 MONTHS. <em>ONE SYSTEM.</em>" data-nl="4 MAANDEN. <em>ÉÉN SYSTEEM.</em>">4 MONTHS. <em>ONE SYSTEM.</em></h2>
+      <div class="divider reveal"></div>
+      <p class="reveal" style="max-width:620px; font-size:16px; line-height:1.8; color:var(--white-dim);"
+        data-en="The Winners Foundation Program is a time-bound, outcome-driven coaching trajectory. You'll train with structure, understand why every method is applied, and graduate with the tools to perform independently."
+        data-nl="Het Winners Fundatieprogramma is een tijdgebonden, resultaatgericht coachingtraject. Je traint met structuur, begrijpt waarom elke methode wordt toegepast en rondt af met de tools om zelfstandig te presteren.">
+        The Winners Foundation Program is a time-bound, outcome-driven coaching trajectory. You'll train with structure, understand why every method is applied, and graduate with the tools to perform independently.
+      </p>
+      <div class="phases">
+        <div class="phase reveal">
+          <div class="phase-num">01</div>
+          <div class="phase-title" data-en="Foundation" data-nl="Fundament">Foundation</div>
+          <p class="phase-desc" data-en="Assessment, goal-setting, and building the technical base. We establish your movement patterns, identify imbalances, and set measurable targets for the full program." data-nl="Assessment, doelstelling en het bouwen van de technische basis. We stellen je bewegingspatronen vast, identificeren onevenwichtigheden en stellen meetbare doelen voor het volledige programma.">
+            Assessment, goal-setting, and building the technical base. We establish your movement patterns, identify imbalances, and set measurable targets for the full program.
+          </p>
+          <div class="phase-weeks" data-en="Weeks 1–4" data-nl="Weken 1–4">Weeks 1–4</div>
+        </div>
+        <div class="phase reveal">
+          <div class="phase-num">02</div>
+          <div class="phase-title" data-en="Development" data-nl="Ontwikkeling">Development</div>
+          <p class="phase-desc" data-en="Progressive overload, nutrition integration, and performance tracking. You gain understanding of training principles — not just follow instructions." data-nl="Progressieve overbelasting, voedingsintegratie en prestatietracking. Je krijgt inzicht in trainingsprincipes — niet alleen instructies opvolgen.">
+            Progressive overload, nutrition integration, and performance tracking. You gain understanding of training principles — not just follow instructions.
+          </p>
+          <div class="phase-weeks" data-en="Weeks 5–12" data-nl="Weken 5–12">Weeks 5–12</div>
+        </div>
+        <div class="phase reveal">
+          <div class="phase-num">03</div>
+          <div class="phase-title" data-en="Independence" data-nl="Zelfstandigheid">Independence</div>
+          <p class="phase-desc" data-en="Consolidation, self-programming skills, and graduation. You leave with a personal plan and the knowledge to execute it — with optional continued online support." data-nl="Consolidatie, zelfprogrammeringsvaardigheden en afstuderen. Je vertrekt met een persoonlijk plan en de kennis om het uit te voeren — met optionele voortgezette online ondersteuning.">
+            Consolidation, self-programming skills, and graduation. You leave with a personal plan and the knowledge to execute it — with optional continued online support.
+          </p>
+          <div class="phase-weeks" data-en="Weeks 13–16" data-nl="Weken 13–16">Weeks 13–16</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="pricing-inner">
+      <p class="section-label reveal" data-en="Investment" data-nl="Investering">Investment</p>
+      <h2 class="section-title reveal" data-en="CLEAR <em>PRICING.</em>" data-nl="DUIDELIJKE <em>PRIJZEN.</em>">CLEAR <em>PRICING.</em></h2>
+      <div class="divider reveal"></div>
+      <div class="pricing-grid">
+        <div class="price-card featured reveal" data-label="Most Popular">
+          <div class="price-name" data-en="Winners Foundation Program" data-nl="Winners Fundatieprogramma">Winners Foundation Program</div>
+          <div class="price-amount">€250</div>
+          <div class="price-period" data-en="per month · 4 months" data-nl="per maand · 4 maanden">per month · 4 months</div>
+          <ul class="price-features">
+            <li data-en="4 personal training sessions per month" data-nl="4 personal trainingsessies per maand">4 personal training sessions per month</li>
+            <li data-en="Personalised training programme" data-nl="Gepersonaliseerd trainingsprogramma">Personalised training programme</li>
+            <li data-en="Nutrition & lifestyle guidance" data-nl="Voedings- en leefstijlbegeleiding">Nutrition & lifestyle guidance</li>
+            <li data-en="24/7 support via messaging" data-nl="24/7 ondersteuning via berichten">24/7 support via messaging</li>
+            <li data-en="Progress tracking & assessments" data-nl="Voortgangsmonitoring & assessments">Progress tracking & assessments</li>
+            <li data-en="Graduation plan for independence" data-nl="Afstudeerplan voor zelfstandigheid">Graduation plan for independence</li>
+          </ul>
+          <a href="#contact" class="btn-primary" data-en="Apply Now" data-nl="Nu Aanmelden">Apply Now</a>
+        </div>
+        <div class="price-card reveal">
+          <div class="price-name" data-en="Online Continuation" data-nl="Online Voortzetting">Online Continuation</div>
+          <div class="price-amount">€100</div>
+          <div class="price-period" data-en="per month · after graduation" data-nl="per maand · na afstuderen">per month · after graduation</div>
+          <ul class="price-features">
+            <li data-en="Monthly updated training programme" data-nl="Maandelijks bijgewerkt trainingsprogramma">Monthly updated training programme</li>
+            <li data-en="Nutritional programming" data-nl="Voedingsprogrammering">Nutritional programming</li>
+            <li data-en="Community access & shared wins" data-nl="Community toegang & gedeelde overwinningen">Community access & shared wins</li>
+            <li data-en="Check-in support & accountability" data-nl="Check-in ondersteuning & verantwoording">Check-in support & accountability</li>
+            <li data-en="Available for graduates only" data-nl="Alleen beschikbaar voor afgestudeerden">Available for graduates only</li>
+          </ul>
+          <a href="#contact" class="btn-ghost" data-en="Learn More" data-nl="Meer Informatie">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section id="trust">
+    <div class="trust-inner">
+      <p class="section-label reveal" data-en="Why It Works" data-nl="Waarom Het Werkt">Why It Works</p>
+      <h2 class="section-title reveal" data-en="RESULTS BUILT ON <em>TRUST.</em>" data-nl="RESULTATEN GEBOUWD OP <em>VERTROUWEN.</em>">RESULTS BUILT ON <em>TRUST.</em></h2>
+      <div class="divider reveal" style="margin: 0 auto 0;"></div>
+      <div class="trust-quote reveal" data-en="&ldquo;I finally understood why I was training the way I was. That understanding changed everything — I'm still going strong, independently, two years later.&rdquo;" data-nl="&ldquo;Ik begreep eindelijk waarom ik trainde zoals ik deed. Dat inzicht veranderde alles — ik ga nog steeds sterk, zelfstandig, twee jaar later.&rdquo;">
+        &ldquo;I finally understood why I was training the way I was. That understanding changed everything — I'm still going strong, independently, two years later.&rdquo;
+      </div>
+      <p class="trust-author reveal" data-en="Foundation Program Graduate" data-nl="Fundatieprogramma Afgestudeerde">Foundation Program Graduate</p>
+      <div class="trust-stats">
+        <div class="reveal">
+          <div class="trust-stat-num">4</div>
+          <div class="trust-stat-label" data-en="Month Program" data-nl="Maanden Programma">Month Program</div>
+        </div>
+        <div class="reveal">
+          <div class="trust-stat-num">3</div>
+          <div class="trust-stat-label" data-en="Program Phases" data-nl="Programma Fases">Program Phases</div>
+        </div>
+        <div class="reveal">
+          <div class="trust-stat-num">100%</div>
+          <div class="trust-stat-label" data-en="Personalised" data-nl="Gepersonaliseerd">Personalised</div>
+        </div>
+        <div class="reveal">
+          <div class="trust-stat-num">NL+CA</div>
+          <div class="trust-stat-label" data-en="Markets Served" data-nl="Markten Bediend">Markets Served</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="contact-info reveal">
+        <p class="section-label" data-en="Get Started" data-nl="Begin Nu">Get Started</p>
+        <h2 class="section-title" data-en="APPLY FOR THE <em>PROGRAM.</em>" data-nl="MELD JE AAN VOOR HET <em>PROGRAMMA.</em>">APPLY FOR THE <em>PROGRAM.</em></h2>
+        <div class="divider"></div>
+        <p data-en="Spots in the Foundation Program are limited to maintain quality. Fill in the form and we'll be in touch within 48 hours to discuss your goals and whether WPT is the right fit." data-nl="Plekken in het Fundatieprogramma zijn beperkt om kwaliteit te waarborgen. Vul het formulier in en we nemen binnen 48 uur contact op om je doelen te bespreken.">
+          Spots in the Foundation Program are limited to maintain quality. Fill in the form and we'll be in touch within 48 hours to discuss your goals and whether WPT is the right fit.
+        </p>
+        <div class="contact-detail">
+          <span class="contact-detail-icon">📍</span>
+          <span class="contact-detail-text">Groningen, Netherlands</span>
+        </div>
+        <div class="contact-detail">
+          <span class="contact-detail-icon">📸</span>
+          <span class="contact-detail-text">@WinnersPT</span>
+        </div>
+        <div class="contact-detail">
+          <span class="contact-detail-icon">🌐</span>
+          <span class="contact-detail-text" data-en="Dutch & English coaching available" data-nl="Nederlandse & Engelse coaching beschikbaar">Dutch & English coaching available</span>
+        </div>
+      </div>
+      <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label data-en="First Name" data-nl="Voornaam">First Name</label>
+            <input type="text" required placeholder="e.g. Alex" />
+          </div>
+          <div class="form-group">
+            <label data-en="Last Name" data-nl="Achternaam">Last Name</label>
+            <input type="text" required placeholder="e.g. Smith" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" required placeholder="your@email.com" />
+        </div>
+        <div class="form-group">
+          <label data-en="I am interested in" data-nl="Ik ben geïnteresseerd in">I am interested in</label>
+          <select>
+            <option data-en="Winners Foundation Program (€250/mo)" data-nl="Winners Fundatieprogramma (€250/mnd)">Winners Foundation Program (€250/mo)</option>
+            <option data-en="Online Continuation (€100/mo)" data-nl="Online Voortzetting (€100/mnd)">Online Continuation (€100/mo)</option>
+            <option data-en="Just exploring" data-nl="Gewoon oriënteren">Just exploring</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label data-en="Your main goal" data-nl="Jouw hoofddoel">Your main goal</label>
+          <textarea placeholder="Tell me about your goal, current fitness level, and what's held you back so far..."></textarea>
+        </div>
+        <button type="submit" class="form-submit" data-en="Send Application" data-nl="Aanmelding Versturen">Send Application</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <img src="LOGO_WPT.webp" alt="Winners Personal Training" style="height:56px; width:auto;" />
+    <div class="footer-copy" data-en="© 2026 Winners Personal Training · Groningen, NL" data-nl="© 2026 Winners Personal Training · Groningen, NL">© 2026 Winners Personal Training · Groningen, NL</div>
+    <div class="footer-links">
+      <a href="#program" data-en="Program" data-nl="Programma">Program</a>
+      <a href="#pricing" data-en="Pricing" data-nl="Prijzen">Pricing</a>
+      <a href="#contact" data-en="Contact" data-nl="Contact">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    // ── LANGUAGE TOGGLE ──
+    let currentLang = 'en';
+    function setLang(lang) {
+      currentLang = lang;
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      document.getElementById('btn-nl').classList.toggle('active', lang === 'nl');
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const val = el.getAttribute('data-' + lang);
+        if (!val) return;
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+          el.placeholder = val;
+        } else if (el.tagName === 'OPTION') {
+          el.textContent = val;
+        } else {
+          el.innerHTML = val;
+        }
+      });
+    }
+
+    // ── SCROLL REVEAL ──
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ── FORM SUBMIT ──
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.form-submit');
+      btn.textContent = currentLang === 'nl' ? 'Verstuurd! We nemen snel contact op.' : 'Sent! We\'ll be in touch soon.';
+      btn.style.background = '#2ecc71';
+      btn.style.color = '#fff';
+      setTimeout(() => {
+        btn.textContent = currentLang === 'nl' ? 'Aanmelding Versturen' : 'Send Application';
+        btn.style.background = '';
+        btn.style.color = '';
+        e.target.reset();
+      }, 4000);
+    }
+  </script>
+</body>
+</html>
